@@ -21,68 +21,65 @@ import androidx.navigation.NavController
 fun SearchHomeScreen(
     navController: NavController
 ) {
-
     Scaffold(
         backgroundColor = MaterialTheme.colors.primary,
         modifier = Modifier
             .fillMaxSize(),
     ) {
-
-        var searchString by remember {
-            mutableStateOf("")
-        }
-        Column(Modifier.padding(12.dp)) {
-            TextField(
-                modifier = Modifier.fillMaxWidth(),
-                value = searchString,
-                colors = TextFieldDefaults.textFieldColors(
-                    backgroundColor = MaterialTheme.colors.background,
-                    cursorColor = Color.Black,
-                    focusedIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent
-                ),
-                onValueChange = {
-                    searchString = it
-                },
-                label = {
-                    Text(
-                        text = "Search",
-                        color = Color.Gray
-                    )
-                },
-                shape = RoundedCornerShape(32.dp),
-                singleLine = true,
-                trailingIcon = {
-                    IconButton(
-                        onClick = {
-                            if (searchString.isNotEmpty()) {
-                                searchString = ""
-                            }
-                        }) {
-                        Icon(
-                            imageVector = Icons.Default.Close,
-                            contentDescription = ""
-                        )
-                    }
-
-                },
-                leadingIcon = {
-                    IconButton(onClick = { searchString = "" }) {
-                        Icon(
-                            imageVector = Icons.Default.Search,
-                            contentDescription = ""
-                        )
-                    }
-                },
-                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done)
-            )
-        }
-
+       SearchBar()
     }
 }
 
 @Composable
 fun SearchBar() {
+    var searchString by remember {
+        mutableStateOf("")
+    }
+    Column(Modifier.padding(12.dp)) {
+        TextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = searchString,
+            colors = TextFieldDefaults.textFieldColors(
+                backgroundColor = MaterialTheme.colors.background,
+                cursorColor = Color.Black,
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent
+            ),
+            onValueChange = {
+                searchString = it
+            },
+            label = {
+                Text(
+                    text = "Search",
+                    color = Color.Gray
+                )
+            },
+            shape = RoundedCornerShape(32.dp),
+            singleLine = true,
+            trailingIcon = {
+                IconButton(
+                    onClick = {
+                        if (searchString.isNotEmpty()) {
+                            searchString = ""
+                        }
+                    }) {
+                    Icon(
+                        imageVector = Icons.Default.Close,
+                        contentDescription = ""
+                    )
+                }
 
+            },
+            leadingIcon = {
+                IconButton(onClick = { searchString = "" }) {
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = ""
+                    )
+                }
+            },
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done)
+        )
+    }
 }
 
