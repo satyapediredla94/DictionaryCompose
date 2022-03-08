@@ -1,4 +1,4 @@
-package com.example.dictionarycompose.app_functionality.ui
+package com.example.dictionarycompose.app_functionality.search_word.home.ui
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -15,6 +15,7 @@ import androidx.navigation.NavController
 import com.example.dictionarycompose.api.response.Word
 import com.example.dictionarycompose.ui.theme.DictionaryComposeTheme
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun WordItem(
     navController: NavController,
@@ -27,7 +28,8 @@ fun WordItem(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),
-        shape = MaterialTheme.shapes.medium
+        shape = MaterialTheme.shapes.medium,
+        elevation = 8.dp
     ) {
         Row(
             Modifier.padding(8.dp),

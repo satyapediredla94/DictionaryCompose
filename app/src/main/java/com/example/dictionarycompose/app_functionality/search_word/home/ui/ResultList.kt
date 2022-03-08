@@ -1,4 +1,4 @@
-package com.example.dictionarycompose.app_functionality.ui
+package com.example.dictionarycompose.app_functionality.search_word.home.ui
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
