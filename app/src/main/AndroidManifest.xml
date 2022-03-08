@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dictionarycompose">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".DictionaryApp"
         android:allowBackup="true"

@@ -10,7 +10,9 @@ import androidx.navigation.compose.rememberNavController
 import com.example.dictionarycompose.app_functionality.search_word.SearchWordViewModel
 import com.example.dictionarycompose.app_functionality.ui.SearchHomeScreen
 import com.example.dictionarycompose.ui.theme.DictionaryComposeTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

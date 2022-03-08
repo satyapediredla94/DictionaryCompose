@@ -12,13 +12,14 @@ import com.google.gson.annotations.SerializedName
 data class Word(
     @SerializedName("meanings")
     @TypeConverters(MeaningTypeConverter::class)
-    val meanings: List<Meaning>,
-    val origin: String,
-    val phonetic: String,
+    val meanings: List<Meaning>?,
+    val origin: String?,
+    val phonetic: String?,
     @SerializedName("phonetics")
     @TypeConverters(PhoneticTypeConverter::class)
-    val phonetics: List<Phonetic>,
-    val word: String,
-    @PrimaryKey(autoGenerate = true) var id : Int?,
+    val phonetics: List<Phonetic>?,
+    val word: String
+) {
+    @PrimaryKey(autoGenerate = true) var id : Int? = null
     var isFavorite: Boolean = false
-)
+}
