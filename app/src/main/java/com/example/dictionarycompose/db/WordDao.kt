@@ -13,11 +13,17 @@ interface WordDao {
     suspend fun deleteWord(word: Word)
 
     @Query("SELECT * FROM WORD_INFO WHERE word=:word")
-    suspend fun getWordInfo(word: String) : Word
+    suspend fun getWordInfo(word: String): Word
 
     @Query("SELECT * FROM WORD_INFO WHERE id=:id")
-    suspend fun getWordInfoById(id: Int) : Word
+    suspend fun getWordInfoById(id: Int): Word
 
     @Query("SELECT * FROM WORD_INFO WHERE word LIKE '%' || :word || '%'")
-    suspend fun getMatchingWords(word: String) : List<Word>
+    suspend fun getMatchingWords(word: String): List<Word>
+
+    @Query("SELECT * FROM WORD_INFO WHERE isFavorite = 1")
+    suspend fun getFavoriteWords(): List<Word>
+
+    @Query("SELECT * FROM WORD_INFO ORDER BY timestamp LIMIT 10")
+    suspend fun getRecentWords(): List<Word>
 }

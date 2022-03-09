@@ -22,4 +22,5 @@ data class Word(
 ) {
     @PrimaryKey(autoGenerate = true) var id : Int? = null
     var isFavorite: Boolean = false
+    var timestamp = System.currentTimeMillis()
 }

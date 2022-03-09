@@ -88,5 +88,19 @@ class WordRepositoryImpl constructor(
 
     }
 
+    override suspend fun getFavoriteWords(): Flow<Resource<List<Word>>> = flow {
+        emit(
+            Resource.Success(
+                data = dao.getFavoriteWords()
+            )
+        )
+    }
+
+    override suspend fun getRecentWords(): Flow<Resource<List<Word>>> = flow {
+        emit(Resource.Success(
+            data = dao.getRecentWords()
+        ))
+    }
+
 
 }

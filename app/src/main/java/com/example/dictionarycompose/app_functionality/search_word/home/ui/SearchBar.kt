@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SearchBar(
-    viewmodel: SearchWordViewModel
+    viewModel: SearchWordViewModel
 ) {
     var searchString by remember {
         mutableStateOf("")
@@ -42,7 +42,7 @@ fun SearchBar(
             onValueChange = {
                 searchString = it
                 if (searchString.isNotEmpty()) {
-                    viewmodel.getMatchingWords(searchString)
+                    viewModel.getMatchingWords(searchString)
                 }
             },
             shape = RoundedCornerShape(32.dp),
@@ -50,7 +50,7 @@ fun SearchBar(
             trailingIcon = {
                 IconButton(
                     onClick = {
-                        if (searchString.isNotEmpty()) {
+                        if (searchString.isNotEmpty() && searchString.length > 1) {
                             searchString = ""
                         }
                     }) {
@@ -78,7 +78,7 @@ fun SearchBar(
                 },
                 onGo = {
                     keyboardController?.hide()
-                    viewmodel.getMatchingWords(searchString)
+                    viewModel.getMatchingWords(searchString)
                 }
             )
         )

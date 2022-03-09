@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -13,13 +12,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.dictionarycompose.api.response.Word
+import com.example.dictionarycompose.app_functionality.search_word.SearchWordViewModel
 import com.example.dictionarycompose.ui.theme.DictionaryComposeTheme
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun WordItem(
     navController: NavController,
-    word: Word
+    word: Word,
+    viewModel: SearchWordViewModel
 ) {
     var onFavorite by remember {
         mutableStateOf(false)
@@ -63,14 +64,12 @@ fun WordItem(
                 } ?: "")
             }
             Spacer(modifier = Modifier.width(8.dp))
-            Icon(
-                imageVector = Icons.Default.KeyboardArrowRight,
-                contentDescription = "",
-                Modifier.weight(0.1f),
-                tint = Color.Gray
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            IconButton(onClick = { onFavorite = !onFavorite }) {
+            IconButton(onClick = {
+                onFavorite = !onFavorite
+                word.isFavorite = onFavorite
+                viewModel.addAsFavorite(word)
+            }) {
+                onFavorite = word.isFavorite
                 Icon(
                     imageVector = Icons.Default.Favorite,
                     contentDescription = "",

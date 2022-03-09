@@ -19,6 +19,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.dictionarycompose.app_functionality.FavoriteScreen
+import com.example.dictionarycompose.app_functionality.RecentScreen
 import com.example.dictionarycompose.app_functionality.search_word.SearchWordViewModel
 import com.example.dictionarycompose.app_functionality.search_word.home.BottomBar
 import com.example.dictionarycompose.app_functionality.search_word.home.NavigationItem
@@ -65,16 +67,16 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Navigation(navController: NavHostController) {
+    val viewModel: SearchWordViewModel = hiltViewModel()
     NavHost(navController, startDestination = NavigationItem.Home.route) {
         composable(NavigationItem.Home.route) {
-            val viewModel: SearchWordViewModel = hiltViewModel()
             SearchHomeScreen(navController, viewModel)
         }
         composable(NavigationItem.Favorite.route) {
-
+            FavoriteScreen(navController, viewModel)
         }
         composable(NavigationItem.Recent.route) {
-//            MoviesScreen()
+            RecentScreen(navController, viewModel)
         }
 
     }

@@ -11,11 +11,11 @@ fun SearchHomeScreen(
     navController: NavController,
     viewModel: SearchWordViewModel
 ) {
-        Column {
-            SearchBar(viewModel)
-            val state = viewModel.state.value
-            ResultList(navController = navController, words =state.wordInfoItems)
-        }
+    Column {
+        SearchBar(viewModel)
+        val state = viewModel.state.value
+        ResultList(navController = navController, words = state.wordInfoItems, viewModel)
+    }
 }
 
 

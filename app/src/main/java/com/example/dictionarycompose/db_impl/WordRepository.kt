@@ -16,4 +16,8 @@ interface WordRepository {
 
     suspend fun getMatchingWords(word: String) : Flow<Resource<List<Word>>>
 
+    suspend fun getFavoriteWords() : Flow<Resource<List<Word>>>
+
+    suspend fun getRecentWords() : Flow<Resource<List<Word>>>
+
 }
