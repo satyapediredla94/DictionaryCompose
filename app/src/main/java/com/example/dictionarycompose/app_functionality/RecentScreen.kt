@@ -14,6 +14,6 @@ fun RecentScreen(
     viewModel.getRecentWords()
     Column {
         val state = viewModel.recentState.value
-        ResultList(navController = navController, words =state.wordInfoItems, viewModel)
+        ResultList(navController = navController, words =state.wordInfoItems, viewModel, false)
     }
 }

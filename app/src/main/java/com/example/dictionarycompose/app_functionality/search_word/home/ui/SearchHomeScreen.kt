@@ -14,7 +14,7 @@ fun SearchHomeScreen(
     Column {
         SearchBar(viewModel)
         val state = viewModel.state.value
-        ResultList(navController = navController, words = state.wordInfoItems, viewModel)
+        ResultList(navController = navController, words = state.wordInfoItems, viewModel, false)
     }
 }
 

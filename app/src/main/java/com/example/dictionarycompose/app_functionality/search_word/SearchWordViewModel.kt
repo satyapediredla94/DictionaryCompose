@@ -57,7 +57,7 @@ class SearchWordViewModel @Inject constructor(
                         }
                         is Resource.Loading -> {
                             _state.value = _state.value.copy(
-                                wordInfoItems = resource.data ?: emptyList(),
+                                wordInfoItems = emptyList(),
                                 isLoading = true
                             )
                         }
@@ -86,7 +86,7 @@ class SearchWordViewModel @Inject constructor(
                         }
                         is Resource.Loading -> {
                             _favoriteState.value = _favoriteState.value.copy(
-                                wordInfoItems = resource.data ?: emptyList(),
+                                wordInfoItems = emptyList(),
                                 isLoading = true
                             )
                         }
@@ -121,7 +121,7 @@ class SearchWordViewModel @Inject constructor(
                         }
                         is Resource.Loading -> {
                             _recentState.value = _recentState.value.copy(
-                                wordInfoItems = resource.data ?: emptyList(),
+                                wordInfoItems = emptyList(),
                                 isLoading = true
                             )
                         }

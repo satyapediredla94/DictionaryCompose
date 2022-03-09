@@ -20,7 +20,8 @@ import com.example.dictionarycompose.ui.theme.DictionaryComposeTheme
 fun WordItem(
     navController: NavController,
     word: Word,
-    viewModel: SearchWordViewModel
+    viewModel: SearchWordViewModel,
+    isRefresh : Boolean
 ) {
     var onFavorite by remember {
         mutableStateOf(false)
@@ -68,6 +69,9 @@ fun WordItem(
                 onFavorite = !onFavorite
                 word.isFavorite = onFavorite
                 viewModel.addAsFavorite(word)
+                if (isRefresh) {
+                    viewModel.getFavoriteWords()
+                }
             }) {
                 onFavorite = word.isFavorite
                 Icon(

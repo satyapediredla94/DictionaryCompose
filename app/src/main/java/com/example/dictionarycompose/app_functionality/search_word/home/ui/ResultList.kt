@@ -11,12 +11,12 @@ import com.example.dictionarycompose.app_functionality.search_word.SearchWordVie
 fun ResultList(
     navController: NavController,
     words: List<Word>,
-    viewModel: SearchWordViewModel
+    viewModel: SearchWordViewModel,
+    isRefresh : Boolean
 ) {
-
     LazyColumn {
         items(words) { word ->
-            WordItem(navController = navController, word = word, viewModel)
+            WordItem(navController = navController, word = word, viewModel, isRefresh)
         }
     }
 
