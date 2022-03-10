@@ -26,13 +26,6 @@ fun WordItem(
     var onFavorite by remember {
         mutableStateOf(false)
     }
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp),
-        shape = MaterialTheme.shapes.medium,
-        elevation = 8.dp
-    ) {
         Row(
             Modifier.padding(8.dp),
             verticalAlignment = Alignment.CenterVertically
@@ -42,7 +35,7 @@ fun WordItem(
                     .weight(0.8f)
                     .padding(8.dp),
             ) {
-                Text(text = word.word, style = MaterialTheme.typography.body1)
+                Text(text = word.word, style = MaterialTheme.typography.body1, color = MaterialTheme.colors.onSurface)
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(text = word.phonetic ?: word.phonetics?.let {
                     try {
@@ -62,7 +55,7 @@ fun WordItem(
                         e.printStackTrace()
                         ""
                     }
-                } ?: "")
+                } ?: "", color = MaterialTheme.colors.onSurface)
             }
             Spacer(modifier = Modifier.width(8.dp))
             IconButton(onClick = {
@@ -82,8 +75,6 @@ fun WordItem(
                 )
             }
         }
-
-    }
 
 }
 
