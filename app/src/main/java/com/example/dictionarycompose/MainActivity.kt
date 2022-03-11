@@ -21,6 +21,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.dictionarycompose.app_functionality.FavoriteScreen
@@ -40,27 +41,39 @@ class MainActivity : ComponentActivity() {
         setContent {
             DictionaryComposeTheme {
                 val navController = rememberNavController()
+                val routes = listOf(
+                    NavigationItem.Home.route,
+                    NavigationItem.Favorite.route,
+                    NavigationItem.Recent.route
+                )
+                val showTopAndBottomBar =
+                    navController.currentBackStackEntryAsState().value?.destination?.route in routes
                 Scaffold(
                     topBar = {
-                        TopAppBar(
-                            title = {
-                                Text(
-                                    text = "Dictionary".uppercase(),
-                                    style = MaterialTheme.typography.h6,
-                                    modifier = Modifier.fillMaxWidth(),
-                                    textAlign = TextAlign.Center
-                                )
-                            },
-                            /*navigationIcon = {
-                                IconButton(onClick = {}) {
-                                    Icon(Icons.Filled.ArrowBack, "backIcon")
-                                }
-                            },*/
-                            backgroundColor = MaterialTheme.colors.primary,
-                            elevation = 0.dp,
-                        )
+                        if (showTopAndBottomBar)
+                            TopAppBar(
+                                title = {
+                                    Text(
+                                        text = "Dictionary".uppercase(),
+                                        style = MaterialTheme.typography.h6,
+                                        modifier = Modifier.fillMaxWidth(),
+                                        textAlign = TextAlign.Center
+                                    )
+                                },
+                                /*navigationIcon = {
+                                    IconButton(onClick = {}) {
+                                        Icon(Icons.Filled.ArrowBack, "backIcon")
+                                    }
+                                },*/
+                                backgroundColor = MaterialTheme.colors.primary,
+                                elevation = 0.dp,
+                            )
                     },
-                    bottomBar = { BottomBar(navController) },
+                    bottomBar = {
+                        if (showTopAndBottomBar) {
+                            BottomBar(navController)
+                        }
+                    },
                     backgroundColor = MaterialTheme.colors.primary,
                     modifier = Modifier
                         .fillMaxSize(),
