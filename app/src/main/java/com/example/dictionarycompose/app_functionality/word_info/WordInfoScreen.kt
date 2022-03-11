@@ -87,11 +87,11 @@ fun WordInfo(
                     } ?: "", color = MaterialTheme.colors.onSurface,
                         modifier = Modifier.fillMaxWidth(),
                         textAlign = TextAlign.Center)
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(10.dp))
                     Column(
                         modifier = Modifier
-                            .padding(24.dp)
                             .fillMaxHeight()
+                            .padding(16.dp)
                             .clip(RoundedCornerShape(16.dp))
                             .background(MaterialTheme.colors.background)
                             .verticalScroll(rememberScrollState())
@@ -107,7 +107,7 @@ fun WordInfo(
                                         TwoTextInAColumn(
                                             text1 = "Part of Speech",
                                             text2 = meaning.partOfSpeech ?: "",
-                                            modifier = Modifier.padding(start = 8.dp, top = 8.dp)
+                                            modifier = Modifier.padding(start = 8.dp, top = 8.dp, bottom = 8.dp)
                                         )
                                         if (meaning.definitions.isNotEmpty()) {
                                             meaning.definitions.forEach { definition ->
@@ -117,7 +117,8 @@ fun WordInfo(
                                                         text2 = definition.definition ?: "",
                                                         modifier = Modifier.padding(
                                                             start = 24.dp,
-                                                            top = 8.dp
+                                                            top = 8.dp,
+                                                            bottom = 8.dp
                                                         )
                                                     )
                                                     if (!definition.example.isNullOrEmpty()) {
@@ -125,8 +126,9 @@ fun WordInfo(
                                                             text1 = "Example",
                                                             text2 = definition.example ?: "",
                                                             modifier = Modifier.padding(
-                                                                start = 24.dp,
-                                                                top = 8.dp
+                                                                start = 36.dp,
+                                                                top = 8.dp,
+                                                                bottom = 8.dp
                                                             )
                                                         )
                                                     }
