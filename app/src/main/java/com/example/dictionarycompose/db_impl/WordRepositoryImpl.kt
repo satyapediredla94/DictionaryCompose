@@ -33,6 +33,7 @@ class WordRepositoryImpl constructor(
             if (wordFromDB == null) {
                 Logger.info(TAG, "The word is null. So fetching from API")
                 val wordFromRemote = api.getWordInfo(word)
+                wordFromRemote[0].timestamp = System.currentTimeMillis()
                 dao.insertWord(wordFromRemote[0])
             }
         } catch (e: HttpException) {
