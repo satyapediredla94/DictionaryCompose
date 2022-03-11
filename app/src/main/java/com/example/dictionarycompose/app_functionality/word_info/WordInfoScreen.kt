@@ -63,7 +63,8 @@ fun WordInfo(
                         style = MaterialTheme.typography.h3,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.fillMaxWidth(),
-                        textAlign = TextAlign.Center
+                        textAlign = TextAlign.Center,
+                        color = MaterialTheme.colors.surface
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(text = word?.phonetic ?: word?.phonetics?.let {
@@ -84,7 +85,7 @@ fun WordInfo(
                             e.printStackTrace()
                             ""
                         }
-                    } ?: "", color = MaterialTheme.colors.onSurface,
+                    } ?: "", color = MaterialTheme.colors.surface,
                         modifier = Modifier.fillMaxWidth(),
                         textAlign = TextAlign.Center)
                     Spacer(modifier = Modifier.height(10.dp))

@@ -20,9 +20,10 @@ fun BottomBar(
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
         bottomNavList.forEach {
-            BottomNavigationItem(icon = {
-                Icon(imageVector = it.icon, it.title)
-            },
+            BottomNavigationItem(
+                icon = {
+                    Icon(imageVector = it.icon, it.title)
+                },
                 label = { Text(text = it.title) },
                 selected = currentRoute == it.route,
                 selectedContentColor = MaterialTheme.colors.onSurface,

@@ -24,6 +24,6 @@ interface WordDao {
     @Query("SELECT * FROM WORD_INFO WHERE isFavorite = 1")
     suspend fun getFavoriteWords(): List<Word>
 
-    @Query("SELECT * FROM WORD_INFO ORDER BY timestamp LIMIT 10")
+    @Query("SELECT * FROM WORD_INFO ORDER BY timestamp DESC LIMIT 10")
     suspend fun getRecentWords(): List<Word>
 }
