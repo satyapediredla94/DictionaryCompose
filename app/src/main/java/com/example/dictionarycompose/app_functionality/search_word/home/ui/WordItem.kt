@@ -1,5 +1,6 @@
 package com.example.dictionarycompose.app_functionality.search_word.home.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -21,60 +22,68 @@ fun WordItem(
     navController: NavController,
     word: Word,
     viewModel: SearchWordViewModel,
-    isRefresh : Boolean
+    isRefresh: Boolean
 ) {
     var onFavorite by remember {
         mutableStateOf(false)
     }
-        Row(
-            Modifier.padding(8.dp),
-            verticalAlignment = Alignment.CenterVertically
+    Row(
+        Modifier
+            .padding(8.dp)
+            .clickable {
+                navController.navigate("word_info/${word.word}")
+            },
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Column(
+            modifier = Modifier
+                .weight(0.8f)
+                .padding(8.dp),
         ) {
-            Column(
-                modifier = Modifier
-                    .weight(0.8f)
-                    .padding(8.dp),
-            ) {
-                Text(text = word.word, style = MaterialTheme.typography.body1, color = MaterialTheme.colors.onSurface)
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(text = word.phonetic ?: word.phonetics?.let {
-                    try {
-                        if (it.isNotEmpty()) {
-                            var phoneticDisplay = ""
-                            for (phonetic in it) {
-                                if (!phonetic.text.isNullOrEmpty()) {
-                                    phoneticDisplay = phonetic.text
-                                    break
-                                }
+            Text(
+                text = word.word,
+                style = MaterialTheme.typography.body1,
+                color = MaterialTheme.colors.onSurface
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(text = word.phonetic ?: word.phonetics?.let {
+                try {
+                    if (it.isNotEmpty()) {
+                        var phoneticDisplay = ""
+                        for (phonetic in it) {
+                            if (!phonetic.text.isNullOrEmpty()) {
+                                phoneticDisplay = phonetic.text
+                                break
                             }
-                            phoneticDisplay
-                        } else {
-                            ""
                         }
-                    } catch (e: Exception) {
-                        e.printStackTrace()
+                        phoneticDisplay
+                    } else {
                         ""
                     }
-                } ?: "", color = MaterialTheme.colors.onSurface)
-            }
-            Spacer(modifier = Modifier.width(8.dp))
-            IconButton(onClick = {
-                onFavorite = !onFavorite
-                word.isFavorite = onFavorite
-                viewModel.addAsFavorite(word)
-                if (isRefresh) {
-                    viewModel.getFavoriteWords()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    ""
                 }
-            }) {
-                onFavorite = word.isFavorite
-                Icon(
-                    imageVector = Icons.Default.Favorite,
-                    contentDescription = "",
-                    Modifier.weight(0.1f),
-                    tint = if (onFavorite) Color.Red else Color.Gray
-                )
-            }
+            } ?: "", color = MaterialTheme.colors.onSurface)
         }
+        Spacer(modifier = Modifier.width(8.dp))
+        IconButton(onClick = {
+            onFavorite = !onFavorite
+            word.isFavorite = onFavorite
+            viewModel.addAsFavorite(word)
+            if (isRefresh) {
+                viewModel.getFavoriteWords()
+            }
+        }) {
+            onFavorite = word.isFavorite
+            Icon(
+                imageVector = Icons.Default.Favorite,
+                contentDescription = "",
+                Modifier.weight(0.1f),
+                tint = if (onFavorite) Color.Red else Color.Gray
+            )
+        }
+    }
 
 }
 

@@ -18,15 +18,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.dictionarycompose.app_functionality.FavoriteScreen
 import com.example.dictionarycompose.app_functionality.RecentScreen
 import com.example.dictionarycompose.app_functionality.search_word.SearchWordViewModel
 import com.example.dictionarycompose.app_functionality.search_word.home.BottomBar
 import com.example.dictionarycompose.app_functionality.search_word.home.NavigationItem
 import com.example.dictionarycompose.app_functionality.search_word.home.ui.SearchHomeScreen
+import com.example.dictionarycompose.app_functionality.word_info.WordInfo
 import com.example.dictionarycompose.ui.theme.DictionaryComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -41,10 +44,12 @@ class MainActivity : ComponentActivity() {
                     topBar = {
                         TopAppBar(
                             title = {
-                                Text(text = "Dictionary".uppercase(),
+                                Text(
+                                    text = "Dictionary".uppercase(),
                                     style = MaterialTheme.typography.h6,
-                                modifier = Modifier.fillMaxWidth(),
-                                textAlign = TextAlign.Center)
+                                    modifier = Modifier.fillMaxWidth(),
+                                    textAlign = TextAlign.Center
+                                )
                             },
                             /*navigationIcon = {
                                 IconButton(onClick = {}) {
@@ -84,7 +89,21 @@ fun Navigation(navController: NavHostController) {
         composable(NavigationItem.Recent.route) {
             RecentScreen(navController, viewModel)
         }
-
+        composable("word_info/{word}",
+            arguments = listOf(
+                navArgument("word") {
+                    // Make argument type safe
+                    type = NavType.StringType
+                    defaultValue = ""
+                }
+            )) { backStackEntry ->
+            val wordJson = backStackEntry.arguments?.get("word")
+            WordInfo(
+                navController = navController,
+                viewModel = viewModel,
+                wordJson = wordJson as String
+            )
+        }
     }
 }
 

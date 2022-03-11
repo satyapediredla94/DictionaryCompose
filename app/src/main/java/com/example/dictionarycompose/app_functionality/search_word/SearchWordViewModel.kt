@@ -7,13 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.example.dictionarycompose.api.response.Word
 import com.example.dictionarycompose.db_impl.WordRepository
 import com.example.dictionarycompose.utils.Resource
+import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,6 +25,9 @@ class SearchWordViewModel @Inject constructor(
 
     private val _state = mutableStateOf(WordInfoState())
     val state: State<WordInfoState> = _state
+
+    private val _word = mutableStateOf<Word?>(null)
+    val word: State<Word?> = _word
 
     private val _favoriteState = mutableStateOf(WordInfoState())
     val favoriteState: State<WordInfoState> = _favoriteState
@@ -64,6 +65,11 @@ class SearchWordViewModel @Inject constructor(
                     }
                 }.launchIn(this)
         }
+    }
+
+    fun getWordFromJson(wordJson: String) : Word {
+        val gson = Gson()
+        return gson.fromJson(wordJson, Word::class.java)
     }
 
     fun getFavoriteWords() {
@@ -127,6 +133,20 @@ class SearchWordViewModel @Inject constructor(
                         }
                     }
                 }.launchIn(this)
+        }
+    }
+
+    fun getMatchingWord(wordJson: String) {
+        viewModelScope.launch {
+            repository.getWordInfo(wordJson).collect { resource ->
+                when (resource) {
+                    is Resource.Error -> {}
+                    is Resource.Loading -> {}
+                    is Resource.Success -> {
+                        _word.value = resource.data
+                    }
+                }
+            }
         }
     }
 
