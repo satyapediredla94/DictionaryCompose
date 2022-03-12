@@ -76,6 +76,7 @@ class WordRepositoryImpl constructor(
     }
 
     override suspend fun getMatchingWords(word: String): Flow<Resource<List<Word>>> = flow {
+        emit(Resource.Loading())
         getWordInfo(word)
             .collect { resource ->
                 if (resource is Resource.Success) {

@@ -73,6 +73,7 @@ fun WordItem(
             viewModel.addAsFavorite(word)
             if (isRefresh) {
                 viewModel.getFavoriteWords()
+                viewModel.getRecentWords()
             }
         }) {
             onFavorite = word.isFavorite

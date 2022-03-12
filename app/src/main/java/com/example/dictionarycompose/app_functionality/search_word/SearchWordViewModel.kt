@@ -74,7 +74,7 @@ class SearchWordViewModel @Inject constructor(
 
     fun getFavoriteWords() {
         viewModelScope.launch {
-            delay(2000L)
+            delay(500L)
             repository.getFavoriteWords()
                 .onEach { resource ->
                     when (resource) {
@@ -109,7 +109,7 @@ class SearchWordViewModel @Inject constructor(
 
     fun getRecentWords() {
         viewModelScope.launch {
-            delay(2000L)
+            delay(500L)
             repository.getRecentWords()
                 .onEach { resource ->
                     when (resource) {
