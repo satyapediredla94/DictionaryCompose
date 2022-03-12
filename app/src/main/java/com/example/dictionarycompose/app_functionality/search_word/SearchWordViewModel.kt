@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.dictionarycompose.api.response.Word
 import com.example.dictionarycompose.db_impl.WordRepository
 import com.example.dictionarycompose.utils.Resource
-import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -23,7 +22,7 @@ class SearchWordViewModel @Inject constructor(
     private val _displayMatchingWords = MutableStateFlow<List<Word>>(listOf())
     val matchingWords: StateFlow<List<Word>> = _displayMatchingWords
 
-    private val _state = mutableStateOf(WordInfoState())
+    private val _state = mutableStateOf(WordInfoState().copy(isLoading = false))
     val state: State<WordInfoState> = _state
 
     private val _word = mutableStateOf<Word?>(null)
@@ -38,6 +37,15 @@ class SearchWordViewModel @Inject constructor(
     private var job: Job? = null
 
     fun getMatchingWords(word: String) {
+        if (word.length > 1) {
+            _state.value = _state.value.copy(isLoading = true)
+        } else {
+            _state.value = _state.value.copy(
+                wordInfoItems = emptyList(),
+                isLoading = false
+            )
+            return
+        }
         job?.cancel()
         job = viewModelScope.launch {
             delay(2000L)
@@ -65,11 +73,6 @@ class SearchWordViewModel @Inject constructor(
                     }
                 }.launchIn(this)
         }
-    }
-
-    fun getWordFromJson(wordJson: String) : Word {
-        val gson = Gson()
-        return gson.fromJson(wordJson, Word::class.java)
     }
 
     fun getFavoriteWords() {

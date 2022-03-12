@@ -41,18 +41,15 @@ fun SearchBar(
             ),
             onValueChange = {
                 searchString = it
-                if (searchString.isNotEmpty()) {
-                    viewModel.getMatchingWords(searchString)
-                }
+                viewModel.getMatchingWords(searchString)
             },
             shape = RoundedCornerShape(32.dp),
             singleLine = true,
             trailingIcon = {
                 IconButton(
                     onClick = {
-                        if (searchString.isNotEmpty() && searchString.length > 1) {
-                            searchString = ""
-                        }
+                        searchString = ""
+
                     }) {
                     Icon(
                         imageVector = Icons.Default.Close,

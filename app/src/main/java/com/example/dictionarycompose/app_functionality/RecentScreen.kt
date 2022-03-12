@@ -1,7 +1,6 @@
 package com.example.dictionarycompose.app_functionality
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
@@ -21,17 +20,15 @@ fun RecentScreen(
     viewModel.getRecentWords()
     val state = viewModel.recentState.value
     Column {
+        ResultList(navController = navController, words =state.wordInfoItems, viewModel, true)
         if (state.isLoading) {
             CircularProgressIndicator(
                 color = MaterialTheme.colors.secondary,
                 strokeWidth = 6.dp,
                 modifier = Modifier
-                    .height(30.dp)
-                    .fillMaxSize()
+                    .height(50.dp)
                     .align(CenterHorizontally)
             )
-            viewModel.getRecentWords()
         }
-        ResultList(navController = navController, words =state.wordInfoItems, viewModel, true)
     }
 }
